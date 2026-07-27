@@ -78,7 +78,7 @@ function main() {
             ({ positionals }) => {
               const version = positionals[1];
               if (!isBumpType(version)) {
-                log("Invalid version specified:", version);
+                log("Invalid version type specified:", version);
                 printUsage();
                 return;
               }
