@@ -36,7 +36,7 @@ const evalLine = (input: string): LineResult => {
         });
     }
   } catch {
-    return fail("not calculable", {
+    return fail("not calculable", new Error("not calculable"), {
       input: input,
     });
   }

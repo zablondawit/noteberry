@@ -22,10 +22,12 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
-    "baseUrl": ".",
+    "baseUrl": ".", // remove when upgrading to TS 7.x
     "paths": {
       "@/*": ["src/*"],
-    }
+    },
+
+    "ignoreDeprecations": "6.0", // remove when upgrading to TS 7.x
   },
   "include": ["src"],
 }

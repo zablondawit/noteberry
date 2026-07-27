@@ -1,10 +1,7 @@
 // import './App.css'
-import { Editor } from "@/components/editor"
 
 function App() {
-  return (
-    <Editor />
-  )
+  return "Hello React";
 }
 
-export default App
+export default App;
