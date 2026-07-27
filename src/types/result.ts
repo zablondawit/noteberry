@@ -31,8 +31,8 @@ export function ok<T>(data: T): OkResult<T> {
 
 export function fail<E extends ApplicationError, C extends FailResult["ctx"]>(
   message: string,
-  ctx?: C,
   error?: E,
+  ctx?: C,
 ): FailResult<C, E> {
   return {
     message,
@@ -72,15 +72,11 @@ export function isAllOk<T, E extends ApplicationError>(
   return results.every(isOk);
 }
 
-export function tryCatch<T>(
-  fn: () => T,
-  msg: string,
-  err?: ApplicationError,
-): Result<T> {
+export function tryCatch<T>(fn: () => T, msg: string): Result<T> {
   try {
     return ok(fn());
   } catch (error) {
-    return fail(msg, err);
+    return fail(msg, error);
   }
 }
 
