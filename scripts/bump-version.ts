@@ -1,14 +1,14 @@
 #!/usr/bin/env zx
 import dedent from "dedent";
 import { log } from "node:console";
-import { parseArgs, type ParseArgsConfig } from "node:util";
+import { writeFile } from "node:fs";
+import { join } from "node:path";
 import { cwd } from "node:process";
+import { parseArgs, type ParseArgsConfig } from "node:util";
 import { match, P } from "ts-pattern";
 import { z } from "zod";
 import { $ as zx$ } from "zx";
 import { tryCatch } from "../src/types/result.ts";
-import { join } from "node:path";
-import { writeFile } from "node:fs";
 
 const opts = {
   options: {
@@ -53,7 +53,7 @@ async function bumpVersion(version: BumpType) {
   const outStr = out.stdout;
 
   const dirName = cwd();
-  const outFile = "git-commit-history.txt";
+  const outFile = "git-commit-history.txt"; // temporary
 
   // FIXME: remove this outfile and replace with
   // sending the output straight to changeset's message
