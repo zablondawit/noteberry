@@ -1,11 +1,14 @@
 #!/usr/bin/env zx
-import { $ as zx$ } from "zx";
-import { parseArgs, type ParseArgsConfig } from "node:util";
-import { log } from "node:console";
 import dedent from "dedent";
-import { z } from "zod";
+import { log } from "node:console";
+import { parseArgs, type ParseArgsConfig } from "node:util";
+import { cwd } from "node:process";
 import { match, P } from "ts-pattern";
+import { z } from "zod";
+import { $ as zx$ } from "zx";
 import { tryCatch } from "../src/types/result.ts";
+import { join } from "node:path";
+import { writeFile } from "node:fs";
 
 const opts = {
   options: {
@@ -42,9 +45,29 @@ type BumpType = z.infer<typeof bumpTypes>;
 const isBumpType = (version: string): version is BumpType =>
   bumpTypes.safeParse(version).success;
 
-function bumpVersion(version: BumpType) {
-  // $`p changeset add --${version}`;
-  $`echo "not implemented"`;
+// usage: https://changesets.dev/guide/cli#add
+async function bumpVersion(version: BumpType) {
+  // TODO: Ensure not to add commit messages that were previously
+  // included commit lines changeset version files.
+  const out = await $`git log --reverse --format="→ [%h] %s%n%b"`;
+  const outStr = out.stdout;
+
+  const dirName = cwd();
+  const outFile = "git-commit-history.txt";
+
+  // FIXME: remove this outfile and replace with
+  // sending the output straight to changeset's message
+  // field for the command `pnpm changesets`
+  return writeFile(join(dirName, outFile), outStr, "utf8", (error) => {
+    if (error) {
+      log(`failed to write ${outFile} to ${dirName}: ${error}`);
+    } else {
+      log(`wrote ${outFile} to ${dirName}`);
+    }
+  });
+
+  // FIXME: DO THIS INSTEAD
+  // $`p changeset add --${version} --message ${text}`;
 }
 
 function main() {
