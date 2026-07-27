@@ -76,7 +76,7 @@ export function tryCatch<T>(fn: () => T, msg: string): Result<T> {
   try {
     return ok(fn());
   } catch (error) {
-    return fail(msg, error);
+    return fail(msg, error as Error);
   }
 }
 
