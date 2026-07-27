@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest",
-    "watch:playground": "vitest playground/*"
+    "watch:playground": "vitest playground/*",
+    "pkg:bump": "node ./scripts/bump-version.ts"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",
@@ -26,7 +27,8 @@
     "mathjs": "^15.2.0",
     "ramda": "^0.32.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
@@ -41,7 +43,8 @@
     "typescript": "~6.0.3",
     "typescript-language-server": "^5.3.0",
     "vite": "^8.1.1",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "zx": "^8.8.5"
   },
   "license": "Apache-2.0"
 }
