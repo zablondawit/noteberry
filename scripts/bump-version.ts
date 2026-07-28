@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 import dedent from "dedent";
 import { log } from "node:console";
-import { writeFile } from "node:fs";
+import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { parseArgs, type ParseArgsConfig } from "node:util";
@@ -9,6 +9,7 @@ import { match, P } from "ts-pattern";
 import { z } from "zod";
 import { $ as zx$ } from "zx";
 import { tryCatch } from "../src/types/result.ts";
+import { randomBytes } from "node:crypto";
 
 const opts = {
   options: {
@@ -47,27 +48,44 @@ const isBumpType = (version: string): version is BumpType =>
 
 // usage: https://changesets.dev/guide/cli#add
 async function bumpVersion(version: BumpType) {
-  // TODO: Ensure not to add commit messages that were previously
-  // included commit lines changeset version files.
-  const out = await $`git log --reverse --format="→ [%h] %s%n%b"`;
+  // Get git commit history
+  const out =
+    await $`git --no-pager log --reverse --format="→ [%h] %s%n%b"`.quiet();
   const outStr = out.stdout;
 
-  const dirName = cwd();
-  const outFile = "git-commit-history.txt"; // temporary
+  const msg = "initial release";
+  const changelogMessage = dedent`
+    ${msg}
+    ${outStr}
+  `.trim();
 
-  // FIXME: remove this outfile and replace with
-  // sending the output straight to changeset's message
-  // field for the command `pnpm changesets`
-  return writeFile(join(dirName, outFile), outStr, "utf8", (error) => {
-    if (error) {
-      log(`failed to write ${outFile} to ${dirName}: ${error}`);
-    } else {
-      log(`wrote ${outFile} to ${dirName}`);
-    }
-  });
+  // Read package.json to get package name
+  const packageJsonPath = join(cwd(), "package.json");
+  const packageJson = JSON.parse(
+    await $`cat ${packageJsonPath}`.quiet().then((r) => r.stdout),
+  );
+  const packageName = packageJson.name;
 
-  // FIXME: DO THIS INSTEAD
-  // $`p changeset add --${version} --message ${text}`;
+  // Generate a random changeset ID (similar to how changesets does it)
+  const changesetId = randomBytes(4).toString("hex");
+  const changesetFileName = `${changesetId}.md`;
+  const changesetPath = join(cwd(), ".changeset", changesetFileName);
+
+  // Create changeset file content
+  // Format: https://github.com/changesets/changesets/blob/main/docs/detailed-explanation.md
+  const changesetContent = `---
+"${packageName}": ${version}
+---
+
+${changelogMessage}
+`;
+
+  // Write the changeset file
+  await writeFile(changesetPath, changesetContent, "utf8");
+
+  log(`✅ Created changeset: .changeset/${changesetFileName}`);
+  log(`📦 Package: ${packageName}`);
+  log(`🔼 Version bump: ${version}`);
 }
 
 function main() {
