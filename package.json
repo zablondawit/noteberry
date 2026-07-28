@@ -9,9 +9,9 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest",
-    "watch:playground": "vitest playground/*",
-    "changeset:bump": "node ./scripts/bump-version.ts",
-    "changeset:version": "changeset version"
+    "pg:watch": "vitest playground/*",
+    "change:generate": "node ./scripts/generate-changeset.ts",
+    "change:bump": "node ./scripts/bump-version.ts"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",
