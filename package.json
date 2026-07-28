@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "watch:playground": "vitest playground/*",
-    "pkg:bump": "node ./scripts/bump-version.ts"
+    "changeset:bump": "node ./scripts/bump-version.ts",
+    "changeset:version": "changeset version"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",
