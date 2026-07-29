@@ -21,14 +21,14 @@ We'll be using these terms to describe the application.
 
 ## Roadmap
 
-1. Evaluating Math Expressions
-2. Performing pre-defined actions as directives
-3. Saving and loading pages locally on the users device
-4. Saving and loading pages remotely on a server
-5. Exporting page and result in multiple formats (HTML, PDF, etc.)
-6. Defining and calling javascript functions
-7. Exposing javascript functions inside a page as an module that can be reused inside another page
-8. Sharing pages with other users
+1. [x] Evaluating Math Expressions
+2. [ ] Performing pre-defined actions as directives
+3. [ ] Saving and loading pages locally on the users device
+4. [ ] Saving and loading pages remotely on a server
+5. [ ] Exporting page and result in multiple formats (HTML, PDF, etc.)
+6. [ ] Defining and calling javascript functions
+7. [ ] Exposing javascript functions inside a page as an module that can be reused inside another page
+8. [ ] Sharing pages with other users
 
 ## Contribution
 
