@@ -1,4 +1,12 @@
-# Readme
+# Noteberry 🍓
+
+- A notepad calculator that assists you to think, store and share calculations
+- I built this editor as this is the product I want to use myself, it's a calculator wrapped inside a notepad interface.
+- It does math operations, defines functions and stores results in values
+- A function is a block of expression that can be evaluated as a single unit
+- A function takes an input and results in an output, which are both evaluated to a mathematical value
+
+![Screenshot](./docs/screenshot.png)
 
 ## Terms
 
