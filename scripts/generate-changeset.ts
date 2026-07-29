@@ -48,16 +48,9 @@ const isBumpType = (version: string): version is BumpType =>
 
 // usage: https://changesets.dev/guide/cli#add
 async function generateChanges(version: BumpType) {
-  // Get git commit history
-  const out =
-    await $`git --no-pager log --reverse --format="→ [%h] %s%n%b"`.quiet();
-  const outStr = out.stdout;
-
-  const msg = "initial release";
-  const changelogMessage = dedent`
-    ${msg}
-    ${outStr}
-  `.trim();
+  // process result for get git commit history
+  const pResult = await $`git --no-pager log --format="→ [%h] %s%n%b"`.quiet();
+  const changelogMessage = pResult.stdout;
 
   // Read package.json to get package name
   const packageJsonPath = join(cwd(), "package.json");
@@ -73,11 +66,11 @@ async function generateChanges(version: BumpType) {
 
   // Create changeset file content
   // Format: https://github.com/changesets/changesets/blob/main/docs/detailed-explanation.md
-  const changesetContent = `---
-"${packageName}": ${version}
----
+  const changesetContent = dedent`---
+  "${packageName}": ${version}
+  ---
 
-${changelogMessage}
+  ${changelogMessage}
 `;
 
   // Write the changeset file
@@ -89,25 +82,17 @@ ${changelogMessage}
 }
 
 function main() {
-  const result = tryCatch(() => parseArgs(opts), "failed to parse args");
+  const argsResult = tryCatch(() => parseArgs(opts), "failed to parse args");
 
-  match(result)
+  // parse args and match result
+  match(argsResult)
     .when(
       (result) => result.success,
       ({ data: args }) => {
         match(args)
+          .with({ values: { help: true } }, printUsage)
           .with(
-            {
-              values: {
-                help: true,
-              },
-            },
-            printUsage,
-          )
-          .with(
-            {
-              values: { version: P.string.and(P.when(isBumpType)).select() },
-            },
+            { values: { version: P.string.and(P.when(isBumpType)).select() } },
             (version) => generateChanges(version),
           )
           .with(
