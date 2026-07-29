@@ -21,3 +21,7 @@ We'll be using these terms to describe the application.
 6. Defining and calling javascript functions
 7. Exposing javascript functions inside a page as an module that can be reused inside another page
 8. Sharing pages with other users
+
+## Contribution
+
+For contributing to this project, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file.
