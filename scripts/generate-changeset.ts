@@ -49,7 +49,7 @@ const isBumpType = (version: string): version is BumpType =>
 // usage: https://changesets.dev/guide/cli#add
 async function generateChanges(version: BumpType) {
   // process result for get git commit history
-  const pResult = await $`git --no-pager log --format="→ [%h] %s%n%b"`.quiet();
+  const pResult = await $`git --no-pager log --format="[%h] %s%n%b"`.quiet();
   const changelogMessage = pResult.stdout;
 
   // Read package.json to get package name
