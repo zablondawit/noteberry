@@ -1,5 +1,15 @@
 # @qeberodev/noteberry
 
+## 0.0.3
+
+### Patch Changes
+
+- 394252c: [5a7977e] chore: update CONTRIBUTING.md
+  - add a guide on how to contribute to codeberry
+
+  [5a24c6e] chore: update generate-version.ts
+  - filter from feature branch to main tip
+
 ## 0.0.2
 
 ### Patch Changes
