@@ -48,7 +48,8 @@ const isBumpType = (version: string): version is BumpType =>
 
 // usage: https://changesets.dev/guide/cli#add
 async function generateChanges(version: BumpType) {
-  // process result for get git commit history
+  // process result for git commit history
+  // should filter from feature branch till main branch
   const pResult =
     await $`git --no-pager log --format="[%h] %s%n%b" main..HEAD`.quiet();
   const changelogMessage = pResult.stdout;
