@@ -1,52 +1,115 @@
-// import './App.css'
 import { closeBrackets } from "@codemirror/autocomplete";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import { bracketMatching } from "@codemirror/language";
 import { vim } from "@replit/codemirror-vim";
-import CodeMirror, {
+import {
   drawSelection,
+  EditorState,
+  EditorView,
   highlightActiveLine,
   keymap,
   lineNumbers,
+  type Extension,
+  type ReactCodeMirrorProps,
 } from "@uiw/react-codemirror";
-import type { Extension, ReactCodeMirrorProps } from "@uiw/react-codemirror";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import "./app.css";
+import { containerStyle, mainStyle } from "./app.css";
+import { Editor } from "./components/editor/editor";
+import { headerBar } from "./lib/editor/panels";
+import { mathResultsInEditor } from "./lib/extensions/math";
+import { syncActiveLine } from "./lib/extensions/sync-selection";
+import { syncScroll } from "./lib/extensions/sync-scroll";
 
 const commonExtensions: Extension[] = [
   // basicSetup,
   highlightActiveLine(),
 ];
 
+const extensions: { right: Extension[]; left: Extension[] } = {
+  left: [
+    ...commonExtensions,
+    vim(),
+    lineNumbers(),
+    history(),
+    closeBrackets(),
+    bracketMatching(),
+    // syncExtension,
+    drawSelection(),
+    keymap.of([...defaultKeymap, ...historyKeymap]),
+    headerBar("Editor"),
+  ],
+  right: [
+    ...commonExtensions,
+    EditorView.editable.of(false),
+    // [syncScroll(leftEditor)],
+    headerBar("Results"),
+  ],
+} as const;
+
 function App() {
-  const [state, setState] = useState("");
-  const handleViewUpdate = useCallback<
-    NonNullable<ReactCodeMirrorProps["onChange"]>
-  >((value, vUpdate) => {
-    // setState(value);
+  const leftEditorRef = useRef<EditorView>(null);
+  const rightEditorRef = useRef<EditorView>(null);
+  const [editorsReady, setEditorsReady] = useState(false);
+
+  const rightOnCreate = useCallback<
+    NonNullable<ReactCodeMirrorProps["onCreateEditor"]>
+  >((leftEditor) => {
+    rightEditorRef.current = leftEditor;
+    // Check if both editors are ready
+    if (leftEditorRef.current) {
+      setEditorsReady(true);
+    }
   }, []);
 
+  const leftOnCreate = useCallback<
+    NonNullable<ReactCodeMirrorProps["onCreateEditor"]>
+  >((view) => {
+    leftEditorRef.current = view;
+
+    // Check if both editors are ready
+    if (rightEditorRef.current) {
+      setEditorsReady(true);
+    }
+  }, []);
+
+  // Use this effect to do something when both editors are ready
+  useEffect(() => {
+    const leftEditor = leftEditorRef.current;
+    const rightEditor = rightEditorRef.current;
+    if (!(editorsReady && rightEditor && leftEditor)) return;
+
+    leftEditor.setState(
+      EditorState.create({
+        doc: "",
+        extensions: [
+          ...extensions.left,
+          mathResultsInEditor(rightEditor),
+          syncActiveLine(rightEditor),
+          syncScroll(rightEditor),
+        ],
+      }),
+    );
+  }, [editorsReady]);
+
   return (
-    <CodeMirror
-      extensions={[
-        ...commonExtensions,
-        vim(),
-        lineNumbers(),
-        history(),
-        closeBrackets(),
-        bracketMatching(),
-        // syncExtension,
-        // mathResultsInEditor(rightEditor),
-        // syncScroll(rightEditor),
-        // syncActiveLine(rightEditor),
-        drawSelection(),
-        keymap.of([...defaultKeymap, ...historyKeymap]),
-        // headerBar("Editor"),
-      ]}
-      value={state}
-      height={"100vh"}
-      // width="50%"
-      onChange={handleViewUpdate}
-    />
+    <main className={mainStyle}>
+      <div className={containerStyle}>
+        <Editor
+          onCreateEditor={leftOnCreate}
+          extensions={extensions.left}
+          id="e-left"
+        />
+      </div>
+      <div className={containerStyle}>
+        <Editor
+          readOnly
+          onCreateEditor={rightOnCreate}
+          extensions={extensions.right}
+          id="e-right"
+        />
+      </div>
+    </main>
   );
 }
 
