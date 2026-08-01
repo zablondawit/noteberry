@@ -6,6 +6,8 @@
     "Keymap",
     "replit",
     "qeberodev",
-    "noteberry"
+    "noteberry",
+    "import { clsx } from \"clsx\"",
+    "clsx"
   ]
 }
