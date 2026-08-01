@@ -3,7 +3,7 @@ import { fail, ok, type Result } from "../../types/result";
 import { create, all, type ConfigOptions } from "mathjs";
 import { pipe } from "ramda";
 
-const LOG_OUTPUT = true;
+const LOG_OUTPUT = false;
 
 const mathConfig = {} as const satisfies ConfigOptions;
 const math = create(all, mathConfig);
