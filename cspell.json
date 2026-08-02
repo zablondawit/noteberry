@@ -1,6 +1,7 @@
 {
   "userWords": [
-    "vite"
+    "vite",
+    "import { Dexie, type EntityTable } from \"dexie\""
   ],
   "words": [
     "Keymap",
@@ -8,6 +9,7 @@
     "qeberodev",
     "noteberry",
     "import { clsx } from \"clsx\"",
-    "clsx"
+    "clsx",
+    "Dexie"
   ]
 }
