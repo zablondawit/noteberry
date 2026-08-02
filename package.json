@@ -27,6 +27,8 @@
     "clsx": "^2.1.1",
     "codemirror": "^6.0.2",
     "dedent": "^1.7.2",
+    "dexie": "^4.4.4",
+    "dexie-react-hooks": "^4.4.0",
     "mathjs": "^15.2.0",
     "ramda": "^0.32.0",
     "react": "^19.2.7",
