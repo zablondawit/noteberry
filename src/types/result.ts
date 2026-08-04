@@ -1,7 +1,21 @@
-type ApplicationError = Error;
+import type { ExpectedError } from "./errors";
+import type { TypedError } from "./errors/typed";
+
+type UnexpectedError = TypedError<
+  "UNEXPECTED",
+  {
+    message: string;
+    cause: unknown;
+  }
+>;
+export type ApplicationError = UnexpectedError | ExpectedError;
+// all the error types generated from application error
+export type ApplicationErrorType = ApplicationError extends { type: infer T }
+  ? T
+  : never;
 
 export type OkResult<T> = { success: true; data: T };
-export type FailResult<
+export type FailureResult<
   C = unknown,
   E extends ApplicationError = ApplicationError,
 > = {
@@ -14,7 +28,7 @@ export type Result<
   T,
   C = unknown,
   E extends ApplicationError = ApplicationError,
-> = OkResult<T> | FailResult<C, E>;
+> = OkResult<T> | FailureResult<C, E>;
 
 export type AsyncResult<
   T,
@@ -29,11 +43,10 @@ export function ok<T>(data: T): OkResult<T> {
   };
 }
 
-export function fail<E extends ApplicationError, C extends FailResult["ctx"]>(
-  message: string,
-  error?: E,
-  ctx?: C,
-): FailResult<C, E> {
+export function fail<
+  E extends ApplicationError,
+  C extends FailureResult["ctx"],
+>(message: string, error?: E, ctx?: C): FailureResult<C, E> {
   return {
     message,
     error,
@@ -43,28 +56,18 @@ export function fail<E extends ApplicationError, C extends FailResult["ctx"]>(
 }
 
 export function isOk<T, E extends ApplicationError>(
-  result: Result<T, E>,
+  result: Result<T, unknown, E>,
 ): result is OkResult<T> {
   return result.success === true;
 }
 
-export function isFail<T, E extends ApplicationError>(
-  result: Result<T, E>,
-): result is FailResult<E> {
+export function isFailure<T, E extends ApplicationError>(
+  result: Result<T, unknown, E>,
+): result is FailureResult<unknown, E> {
   return result.success === false;
 }
 
-// export function resolveResultArray<T, E extends ApplicationError>(
-//   results: Result<T, E>[],
-// ): Result<T[], E> {
-//   const errors = results.filter(isFail);
-//   if (errors.length > 0) {
-//     return fail(errors.map((e) => e.message).join(", "), errors[0].error);
-//   }
-
-//   const data = results.filter(isOk).map((r) => r.data);
-//   return ok(data);
-// }
+// export function resolveResultArray<T, E extends ApplicationError>( results: Result<T, E>[]): Result<T[], E>;
 
 export function isAllOk<T, E extends ApplicationError>(
   results: Result<T, E>[],
@@ -75,8 +78,12 @@ export function isAllOk<T, E extends ApplicationError>(
 export function tryCatch<T>(fn: () => T, msg: string): Result<T> {
   try {
     return ok(fn());
-  } catch (error) {
-    return fail(msg, error as Error);
+  } catch (cause) {
+    return fail(msg, {
+      type: "UNEXPECTED",
+      message: msg,
+      cause,
+    });
   }
 }
 
