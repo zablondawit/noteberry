@@ -1,15 +1,12 @@
 {
-  "userWords": [
-    "vite",
-    "import { Dexie, type EntityTable } from \"dexie\""
-  ],
+  "userWords": ["vite"],
   "words": [
     "Keymap",
     "replit",
     "qeberodev",
     "noteberry",
-    "import { clsx } from \"clsx\"",
     "clsx",
-    "Dexie"
+    "Dexie",
+    "indexeddb"
   ]
 }
