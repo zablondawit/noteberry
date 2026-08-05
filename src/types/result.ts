@@ -75,7 +75,10 @@ export function isAllOk<T, E extends ApplicationError>(
   return results.every(isOk);
 }
 
-export function tryCatch<T>(fn: () => T, msg: string): Result<T> {
+/**
+ * Wraps a function call in a try-catch block and returns a Result type.
+ */
+export function wrap<T>(fn: () => T, msg: string): Result<T> {
   try {
     return ok(fn());
   } catch (cause) {
@@ -87,6 +90,20 @@ export function tryCatch<T>(fn: () => T, msg: string): Result<T> {
   }
 }
 
-export function tryCatchAsync() {
-  throw new Error("not implemented");
+/**
+ * Wraps an async function call in a try-catch block and returns an AsyncResult type.
+ */
+export async function wrapAsync<T>(
+  fn: () => Promise<T>,
+  msg: string,
+): AsyncResult<T> {
+  try {
+    return ok(await fn());
+  } catch (cause) {
+    return fail(msg, {
+      type: "UNEXPECTED",
+      message: msg,
+      cause,
+    });
+  }
 }
