@@ -1,7 +1,7 @@
 import { Dexie, type EntityTable } from "dexie";
 import { z } from "zod";
 
-const baseNoteSchema = z.object({
+export const baseNoteSchema = z.object({
   id: z.number().optional(),
   title: z.string(),
   content: z.string(),
@@ -9,18 +9,18 @@ const baseNoteSchema = z.object({
   // convert to number
   updatedAt: z.date().transform((date) => date.getTime()),
 });
-const noteSchema = baseNoteSchema.extend({});
-const tempNoteSchema = baseNoteSchema
+export const noteSchema = baseNoteSchema.extend({});
+export const tempNoteSchema = baseNoteSchema
   .pick({
     id: true,
     updatedAt: true,
     content: true,
   })
   .extend({});
-const newNoteSchema = noteSchema.omit({
+export const newNoteSchema = noteSchema.omit({
   id: true,
 });
-const newTempNoteSchema = tempNoteSchema.omit({
+export const newTempNoteSchema = tempNoteSchema.omit({
   id: true,
 });
 

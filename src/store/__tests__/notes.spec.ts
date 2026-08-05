@@ -70,7 +70,7 @@ describe("store/note", () => {
     });
     it("should result in an error if note doesn't exist", async () => {
       const result = await repo.find("id", 134);
-      expect(isFailure(result)).toBeFalsy();
+      expect(isFailure(result)).to.be.true;
     });
   });
   describe("update", () => {
@@ -174,7 +174,7 @@ describe("store/note", () => {
       }
 
       const got = result.data;
-      expect(got).toBe(1);
+      expect(got).toBe(true);
     });
     it("should result in error for deleting non-existent note", async () => {
       const result = await repo.delete(12);
