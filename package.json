@@ -11,7 +11,11 @@
     "test": "vitest",
     "pg:watch": "vitest playground/*",
     "change:generate": "node ./scripts/generate-changeset.ts",
-    "change:bump": "node ./scripts/bump-version.ts"
+    "change:bump": "node ./scripts/bump-version.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "playwright:install": "playwright install chormium --with-deps",
+    "sb:run": "pnpm run storybook"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",
@@ -53,6 +57,16 @@
     "vite": "^8.1.1",
     "vite-plugin-compression2": "^2.5.3",
     "vitest": "^4.1.10",
-    "zx": "^8.8.5"
+    "zx": "^8.8.5",
+    "storybook": "^10.5.8",
+    "@storybook/react-vite": "^10.5.8",
+    "@chromatic-com/storybook": "latest",
+    "@storybook/addon-vitest": "^10.5.8",
+    "@storybook/addon-a11y": "^10.5.8",
+    "@storybook/addon-docs": "^10.5.8",
+    "@storybook/addon-onboarding": "^10.5.8",
+    "@vitest/browser-playwright": "4.1.10",
+    "@vitest/coverage-v8": "4.1.10",
+    "playwright": "latest"
   }
 }
