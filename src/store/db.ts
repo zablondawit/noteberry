@@ -17,9 +17,7 @@ export const tempNoteSchema = baseNoteSchema
     content: true,
   })
   .extend({});
-export const newNoteSchema = noteSchema.omit({
-  id: true,
-});
+export const newNoteSchema = noteSchema.omit({});
 export const newTempNoteSchema = tempNoteSchema.omit({
   id: true,
 });
