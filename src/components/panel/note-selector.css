@@ -1,5 +1,5 @@
 .note-selector {
-  display: none;
+  display: none; /* Temporary Hide */
   z-index: 1000;
   /*position: absolute;
   left: 50%;
