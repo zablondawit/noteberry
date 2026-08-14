@@ -13,7 +13,7 @@
 We'll be using these terms to describe the application.
 
 - Notepad, the whole application and it's state
-- Page, a block of text that represents a page in the notepad
+- Note, a block of text that represents a page in the notepad
 - Line, a single line of text in a page
 - Evaluation, the process of evaluating a math expression or javascript function
 - Result, the resulting data representation of an evaluation of either a line or a page

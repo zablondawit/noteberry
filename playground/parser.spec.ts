@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 import { create, all, type ConfigOptions } from "mathjs";
-import { Result, tryCatch } from "../src/types/result";
+import { Result, wrap } from "../src/types/result";
 import dedent from "dedent";
 
 describe("parser - playground", () => {
@@ -14,7 +14,7 @@ describe("parser - playground", () => {
     const parser = math.parser();
 
     const ast = lines.map((line, lineIdx) =>
-      tryCatch(() => parser.evaluate(line), `failed to eval line ${lineIdx}`),
+      wrap(() => parser.evaluate(line), `failed to eval line ${lineIdx}`),
     );
 
     const y = parser.get("y");

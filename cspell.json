@@ -7,7 +7,9 @@
     "replit",
     "qeberodev",
     "noteberry",
-    "import { clsx } from \"clsx\"",
-    "clsx"
+    "clsx",
+    "Dexie",
+    "indexeddb",
+    "HTMLLI"
   ]
 }

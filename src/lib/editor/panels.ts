@@ -11,7 +11,7 @@ const renderOutput = (element: HTMLElement, opts: RenderOutputOptions) => {
   // `;
 };
 
-export const createWordCountPanel = (label: string): PanelConstructor => {
+export const createHeaderPanel = (label: string): PanelConstructor => {
   return (/** view: EditorView */): Panel => {
     const dom = document.createElement("div");
     dom.style.padding = `4px 10px`;
@@ -36,4 +36,4 @@ export const createWordCountPanel = (label: string): PanelConstructor => {
 };
 
 export const headerBar = (label: string) =>
-  showPanel.of(createWordCountPanel(label));
+  showPanel.of(createHeaderPanel(label));
