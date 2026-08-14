@@ -1,5 +1,7 @@
 {
-  "userWords": ["vite"],
+  "userWords": [
+    "vite"
+  ],
   "words": [
     "Keymap",
     "replit",
@@ -7,6 +9,7 @@
     "noteberry",
     "clsx",
     "Dexie",
-    "indexeddb"
+    "indexeddb",
+    "HTMLLI"
   ]
 }
