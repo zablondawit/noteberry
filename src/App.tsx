@@ -20,11 +20,31 @@ import { headerBar } from "./lib/editor/panels";
 import { mathResultsInEditor } from "./lib/extensions/math";
 import { syncActiveLine } from "./lib/extensions/sync-selection";
 import { syncScroll } from "./lib/extensions/sync-scroll";
+import { NoteSelectPanel } from "./components/panel/note-selector";
+import type { Note } from "./store/db";
+import { faker } from "@faker-js/faker";
 
 const commonExtensions: Extension[] = [
   // basicSetup,
   highlightActiveLine(),
 ];
+
+// Dummy Notes
+const notes: Note[] = Array.from({ length: 10 }).map((_, idx) => {
+  return {
+    id: idx,
+    title: faker.lorem.words({ max: 4, min: 2 }),
+    content: faker.lorem.paragraphs({ max: 3, min: 1 }),
+    tags: faker.helpers.arrayElements(
+      ["tag1", "tag2", "tag3", "tag4", "tag5"],
+      {
+        min: 0,
+        max: 3,
+      },
+    ),
+    updatedAt: faker.date.recent().getTime(),
+  };
+});
 
 const extensions: { right: Extension[]; left: Extension[] } = {
   left: [
@@ -94,6 +114,8 @@ function App() {
 
   return (
     <main className={mainStyle}>
+      <NoteSelectPanel notes={notes} />
+
       <div className={containerStyle}>
         <Editor
           onCreateEditor={leftOnCreate}
