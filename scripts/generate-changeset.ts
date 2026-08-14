@@ -8,7 +8,7 @@ import { parseArgs, type ParseArgsConfig } from "node:util";
 import { match, P } from "ts-pattern";
 import { z } from "zod";
 import { $ as zx$ } from "zx";
-import { tryCatch } from "../src/types/result.ts";
+import { wrap as tryCatch } from "../src/types/result.ts";
 import { randomBytes } from "node:crypto";
 
 const opts = {
