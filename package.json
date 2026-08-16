@@ -37,6 +37,7 @@
     "dedent": "^1.7.2",
     "dexie": "^4.4.4",
     "dexie-react-hooks": "^4.4.0",
+    "lucide-react": "^1.31.0",
     "mathjs": "^15.2.0",
     "radix-ui": "^1.6.7",
     "ramda": "^0.32.0",

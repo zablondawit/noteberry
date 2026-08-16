@@ -6,18 +6,24 @@ globalStyle("html, body, *", {
   boxSizing: "border-box",
 });
 
+export const editorContainerStyles = style({
+  display: "flex",
+  flexDirection: "row",
+  width: "100%",
+  height: "100%",
+});
 export const mainStyle = style({
   fontFamily: '"Helvetica Neue", Helvetica, Arial',
 
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
   width: "100%",
   height: "100vh",
 });
 export const containerStyle = style({
   flex: 1,
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
 });
 
 // globalStyle(`${containerStyle}#e-left`, {

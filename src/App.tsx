@@ -15,15 +15,16 @@ import {
 import { useLiveQuery } from "dexie-react-hooks";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./app.css";
-import { containerStyle, mainStyle } from "./app.css";
+import { containerStyle, editorContainerStyles, mainStyle } from "./app.css";
 import { Editor } from "./components/editor/editor";
 import { NoteSelectPanel } from "./components/panel/note-selector";
-import { headerBar } from "./lib/editor/panels";
 import { mathResultsInEditor } from "./lib/extensions/math";
 import { syncScroll } from "./lib/extensions/sync-scroll";
 import { syncActiveLine } from "./lib/extensions/sync-selection";
 import { db, type Note } from "./store/db";
 import { NoteRepositoryLive } from "./store/notes";
+import { Button } from "@/components/ui/button";
+import { MenuIcon } from "lucide-react";
 
 const commonExtensions: Extension[] = [
   // basicSetup,
@@ -58,13 +59,11 @@ const extensions = {
     // syncExtension,
     drawSelection(),
     keymap.of([...defaultKeymap, ...historyKeymap]),
-    headerBar("Editor"),
   ],
   right: [
     ...commonExtensions,
     EditorView.editable.of(false),
     // [syncScroll(leftEditor)],
-    headerBar("Results"),
   ],
 } as const as Record<"right" | "left", Extension[]>;
 
@@ -172,27 +171,35 @@ function App() {
 
   return (
     <main className={mainStyle}>
-      <NoteSelectPanel onNoteSelect={onNoteSelect} notes={notes} />
+      {/*<NoteSelectPanel onNoteSelect={onNoteSelect} notes={notes} />*/}
 
-      <div className={containerStyle}>
-        <Editor
-          //@ts-ignore It's fine, just async which can possibly cause issues like race conditions and stale state
-          // FIXME: ^
-          onChange={handleOnChange}
-          value={editorContent}
-          onCreateEditor={leftOnCreate}
-          extensions={editorExtensions}
-          id="e-left"
-        />
-      </div>
-      <div className={containerStyle}>
-        <Editor
-          readOnly
-          onCreateEditor={rightOnCreate}
-          extensions={mirroredExtensions}
-          id="e-right"
-        />
-      </div>
+      <header className={"border-b border-b-mist-500"}>
+        <Button variant="ghost" size="icon" className="w-8 h-8 cursor-pointer">
+          <MenuIcon />
+        </Button>
+      </header>
+
+      <section className={editorContainerStyles}>
+        <div className={containerStyle}>
+          <Editor
+            //@ts-ignore It's fine, just async which can possibly cause issues like race conditions and stale state
+            // FIXME: ^
+            onChange={handleOnChange}
+            value={editorContent}
+            onCreateEditor={leftOnCreate}
+            extensions={editorExtensions}
+            id="e-left"
+          />
+        </div>
+        <div className={containerStyle}>
+          <Editor
+            readOnly
+            onCreateEditor={rightOnCreate}
+            extensions={mirroredExtensions}
+            id="e-right"
+          />
+        </div>
+      </section>
     </main>
   );
 }
