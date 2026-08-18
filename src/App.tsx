@@ -1,4 +1,4 @@
-import { EditorContainer } from "@/components/editor/editor-container";
+import { EditorContainer } from "@/components/organisms/editor/editor-container";
 import { HeaderBar } from "@/components/organisms/header-bar";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useCallback, useMemo, useState } from "react";
