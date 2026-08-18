@@ -4,4 +4,21 @@
 // see the documentation: https://zed.dev/docs/configuring-zed#settings-files
 {
   "format_on_save": "on",
+  "languages": {
+    "CSS": {
+      "language_servers": ["tailwindcss-language-server", "..."],
+    },
+  },
+  "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "includeLanguages": {
+          "css": "css",
+        },
+        "experimental": {
+          "classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
+        },
+      },
+    },
+  },
 }
