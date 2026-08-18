@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import compression from "vite-plugin-compression2";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
+import autoprefixer from "autoprefixer";
 
 // https://vite.dev/config/
 import path from "node:path";
@@ -21,6 +22,11 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(dirname, "./src"),
+    },
+  },
+  css: {
+    postcss: {
+      plugins: [autoprefixer],
     },
   },
   test: {
