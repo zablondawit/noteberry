@@ -5,6 +5,9 @@ globalStyle("html, body, *", {
   padding: 0,
   boxSizing: "border-box",
 });
+globalStyle("html", {
+  fontSize: "1.8em",
+});
 
 export const editorContainerStyles = style({
   display: "flex",
