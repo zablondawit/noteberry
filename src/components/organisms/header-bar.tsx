@@ -18,7 +18,7 @@ export const HeaderBar = () => {
             className={cn([resultOpen ? "rotate-90" : "rotate-270"])}
           />
         </HeaderBtn>
-        <HeaderBtn>
+        <HeaderBtn hidden>
           <MenuIcon />
         </HeaderBtn>
       </span>
