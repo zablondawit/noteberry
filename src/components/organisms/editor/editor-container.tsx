@@ -13,16 +13,19 @@ import { extensions } from "./extensions";
 import { mathResultsInEditor } from "@/lib/extensions/math";
 import { syncActiveLine } from "@/lib/extensions/sync-selection";
 import { syncScroll } from "@/lib/extensions/sync-scroll";
-import { ResizableContainer } from "../../layout/resizable-panes";
+import {
+  ResizableContainer,
+  type ResizableContainerProps,
+} from "../../layout/resizable-panes";
 import { cn } from "@/lib/utils";
 
 type EditorContainerProps = {
   value: Note["content"];
   onChange: (data: string) => Promise<void>;
   activeNote?: Note;
-};
+} & Pick<ResizableContainerProps, "expandSidebar">;
 export const EditorContainer = (props: EditorContainerProps) => {
-  const { value, activeNote, onChange } = props;
+  const { value, activeNote, onChange, expandSidebar } = props;
   const [content, setEditorContent] = useState<Note["content"]>(value);
 
   const mainEditorRef = useRef<EditorView>(null);
@@ -78,6 +81,7 @@ export const EditorContainer = (props: EditorContainerProps) => {
 
   return (
     <ResizableContainer
+      expandSidebar={expandSidebar}
       leftPane={
         <Editor
           //@ts-ignore should work fine

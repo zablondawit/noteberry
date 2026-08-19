@@ -6,6 +6,7 @@ import "./app.css";
 import { mainStyle } from "./app.css";
 import { db, type Note } from "./store/db";
 import { NoteRepositoryLive } from "./store/notes";
+import { useUIStore } from "./store/ui";
 
 // The active note ID is used to determine which note to display in the editor
 // Currently just use one note, so we hardcode the ID to 1
@@ -49,12 +50,14 @@ const App = () => {
       content: data,
     });
   }, []);
+  const { resultOpen } = useUIStore();
 
   return (
     <main className={mainStyle}>
       {/*<NoteSelectPanel onNoteSelect={onNoteSelect} notes={notes} />*/}
       <HeaderBar />
       <EditorContainer
+        expandSidebar={resultOpen}
         activeNote={activeNote}
         onChange={handleOnChange}
         value={editorContent}

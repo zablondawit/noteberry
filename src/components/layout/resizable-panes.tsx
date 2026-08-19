@@ -16,20 +16,20 @@ const CONFIG = {
   },
 } as const;
 
-type ResizableContainerProps = {
+export type ResizableContainerProps = {
   leftPane: ReactNode;
   rightPane: ReactNode;
-  collapseSidebar?: boolean;
+  expandSidebar?: boolean;
 };
 export const ResizableContainer = (props: ResizableContainerProps) => {
-  const { leftPane, rightPane, collapseSidebar } = props;
+  const { leftPane, rightPane, expandSidebar } = props;
   const rightRef = usePanelRef();
 
   useEffect(() => {
     if (!rightRef.current) return;
-    if (collapseSidebar) rightRef.current.collapse();
+    if (!expandSidebar) rightRef.current.collapse();
     else rightRef.current.expand();
-  }, [collapseSidebar]);
+  }, [expandSidebar]);
 
   return (
     <ResizablePanelGroup
