@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Note } from "@/store/db";
 import { Editor } from "./editor";
+import styles from "./editor-container.module.css";
 import { containerStyle, editorContainerStyle } from "./editor-container.css";
 import type {
   EditorView,
@@ -12,6 +13,8 @@ import { extensions } from "./extensions";
 import { mathResultsInEditor } from "@/lib/extensions/math";
 import { syncActiveLine } from "@/lib/extensions/sync-selection";
 import { syncScroll } from "@/lib/extensions/sync-scroll";
+import { ResizableContainer } from "../../layout/resizable-panes";
+import { cn } from "@/lib/utils";
 
 type EditorContainerProps = {
   value: Note["content"];
@@ -74,8 +77,8 @@ export const EditorContainer = (props: EditorContainerProps) => {
   }, []);
 
   return (
-    <section className={editorContainerStyle}>
-      <div className={containerStyle}>
+    <ResizableContainer
+      leftPane={
         <Editor
           //@ts-ignore should work fine
           ref={editorRef}
@@ -90,11 +93,13 @@ export const EditorContainer = (props: EditorContainerProps) => {
             // Check if both editors are ready
             if (mirrorEditorRef.current) setEditorsReady(true);
           }}
+          className={cn([styles.editor])}
         />
-      </div>
-      <div className={containerStyle}>
+      }
+      rightPane={
         <Editor
           readOnly
+          className={cn([styles.editor])}
           onCreateEditor={(editor) => {
             mirrorEditorRef.current = editor;
             if (mainEditorRef.current) setEditorsReady(true);
@@ -102,7 +107,7 @@ export const EditorContainer = (props: EditorContainerProps) => {
           extensions={mirroredExtensions}
           id="e-right"
         />
-      </div>
-    </section>
+      }
+    />
   );
 };

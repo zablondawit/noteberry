@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.editor {
+  @apply w-full h-full;
+}
