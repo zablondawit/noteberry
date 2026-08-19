@@ -2,7 +2,11 @@ import { EditorView, keymap } from "@uiw/react-codemirror";
 import type { Extension } from "@uiw/react-codemirror";
 import { vim } from "@replit/codemirror-vim";
 import { history, defaultKeymap, historyKeymap } from "@codemirror/commands";
-import { lineNumbers, drawSelection } from "@codemirror/view";
+import {
+  lineNumbers,
+  drawSelection,
+  highlightActiveLine,
+} from "@codemirror/view";
 import { closeBrackets } from "@codemirror/autocomplete";
 import { bracketMatching } from "@codemirror/language";
 
@@ -17,6 +21,7 @@ export const extensions = {
     bracketMatching(),
     // syncExtension,
     drawSelection(),
+    highlightActiveLine(),
     keymap.of([...defaultKeymap, ...historyKeymap]),
   ],
   mirror: [
