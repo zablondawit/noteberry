@@ -8,6 +8,17 @@
 
 ![Video GIF](./docs/output.gif)
 
+## Inspiration
+
+- This is a passion project of mine, having used multiple calculators and notepads, I wanted to combine the two into a single application that can be used to store and share calculations.
+- I have tried a couple of applications that do the same thing, but there is always something missing.
+- A calculator should be
+  - easy to follow
+  - reusable so you can reuse calculations from the other day
+  - share your calculations to a friend
+  - have tools to do more than just do simple BODMAS calculations
+- Hopefully this project grows to reflect what I always believed a modern day calculator should be.
+
 ## Terms
 
 We'll be using these terms to describe the application.
