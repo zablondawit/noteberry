@@ -2,18 +2,12 @@ import { editor } from "./editor.css";
 // import './App.css'
 import type {
   Extension,
-  ReactCodeMirrorRef,
   ReactCodeMirrorProps,
+  ReactCodeMirrorRef,
 } from "@uiw/react-codemirror";
-import {
-  useCallback,
-  useState,
-  type HTMLProps,
-  type PropsWithChildren,
-  type Ref,
-} from "react";
-import { clsx } from "clsx";
 import CodeMirror from "@uiw/react-codemirror";
+import { clsx } from "clsx";
+import { type HTMLProps, type PropsWithChildren, type Ref } from "react";
 
 export type EditorProps = HTMLProps<"div"> &
   ReactCodeMirrorProps & {

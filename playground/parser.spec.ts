@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 import { create, all, type ConfigOptions } from "mathjs";
-import { Result, wrap } from "../src/types/result";
+import { wrap } from "../src/types/result";
 import dedent from "dedent";
 
 describe("parser - playground", () => {

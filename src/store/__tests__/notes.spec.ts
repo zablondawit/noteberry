@@ -1,14 +1,9 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import "fake-indexeddb/auto";
-import { db, type NewNote, type Note } from "../db";
+import { isFailure, isOk, type ApplicationErrorType } from "@/types/result";
 import { faker } from "@faker-js/faker";
+import "fake-indexeddb/auto";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { db, type NewNote, type Note } from "../db";
 import { NoteRepositoryLive } from "../notes";
-import {
-  isFailure,
-  isOk,
-  type ApplicationError,
-  type ApplicationErrorType,
-} from "@/types/result";
 
 describe("store/note", () => {
   afterEach(() => db.notes.clear());

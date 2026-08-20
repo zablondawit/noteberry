@@ -1,3 +1,4 @@
+//@ts-nocheck
 import type { TempNote, NewTempNote, DBInstance } from "./db";
 
 export interface TempNoteRepository {

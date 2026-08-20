@@ -1,7 +1,7 @@
 import "fake-indexeddb/auto";
-import { db } from "../src/store/db";
-import { describe, beforeEach, expect, it } from "vitest";
 import { log } from "node:console";
+import { beforeEach, describe, it } from "vitest";
+import { db } from "../src/store/db";
 
 // 10 notes
 const dummyNotes = [

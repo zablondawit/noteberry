@@ -35,10 +35,18 @@ const evalLine = (input: string): LineResult => {
           output: ``,
         });
     }
-  } catch {
-    return fail("not calculable", new Error("not calculable"), {
-      input: input,
-    });
+  } catch (err) {
+    return fail(
+      "not calculable",
+      {
+        type: "UNEXPECTED",
+        message: "not calculable",
+        cause: err,
+      },
+      {
+        input: input,
+      },
+    );
   }
 };
 
