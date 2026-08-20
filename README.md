@@ -1,5 +1,7 @@
 # Noteberry 🍓
 
+[Check out the live demo](https://calculator.qebero.dev/)
+
 - A notepad calculator that assists you to think, store and share calculations
 - I built this editor as this is the product I want to use myself, it's a calculator wrapped inside a notepad interface.
 - It does math operations, defines functions and stores results in values
