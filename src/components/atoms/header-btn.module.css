@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .header_btn {
-  @apply w-8 h-8 cursor-pointer;
+  @apply w-4 h-4 cursor-pointer;
 
   font-size: 1rem;
   margin: 0.125em;
