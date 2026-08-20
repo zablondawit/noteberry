@@ -6,17 +6,18 @@ import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import autoprefixer from "autoprefixer";
 
-// https://vite.dev/config/
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import { playwright } from "@vitest/browser-playwright";
+
 const dirname =
   typeof __dirname !== "undefined"
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
-// Main config for unit tests and storybook tests
-// For unit tests only: pnpm vitest
-// For storybook tests only: pnpm vitest --config vitest.storybook.config.ts
+// Storybook test config
+// Run with: pnpm vitest --config vitest.storybook.config.ts
 export default defineConfig({
   plugins: [react(), compression(), vanillaExtractPlugin(), tailwindcss()],
   resolve: {
@@ -33,7 +34,28 @@ export default defineConfig({
     "import.meta.vitest": "undefined",
   },
   test: {
-    includeSource: ["src/**/*.{js,jsx,ts,tsx}"],
-    exclude: ["**/*.stories.{js,jsx,ts,tsx}", "**/node_modules/**"],
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          storybookTest({
+            configDir: path.join(dirname, ".storybook"),
+          }),
+        ],
+        test: {
+          name: "storybook",
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [
+              {
+                browser: "chromium",
+              },
+            ],
+          },
+        },
+      },
+    ],
   },
 });
