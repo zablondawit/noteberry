@@ -10,7 +10,22 @@ import {
 import { closeBrackets } from "@codemirror/autocomplete";
 import { bracketMatching } from "@codemirror/language";
 
-export const commonExtensions = [] as const as Extension[];
+/**
+ * CodeMirror extension to hide scrollbars while maintaining scroll functionality.
+ */
+export function hideScrollbar(): Extension {
+  return EditorView.theme({
+    ".cm-scroller": {
+      scrollbarWidth: "none",
+      "-ms-overflow-style": "none",
+      "&::-webkit-scrollbar": {
+        display: "none",
+      },
+    },
+  });
+}
+
+export const commonExtensions = [highlightActiveLine()] as const as Extension[];
 export const extensions = {
   editor: [
     ...commonExtensions,
@@ -21,7 +36,7 @@ export const extensions = {
     bracketMatching(),
     // syncExtension,
     drawSelection(),
-    highlightActiveLine(),
+    hideScrollbar(),
     keymap.of([...defaultKeymap, ...historyKeymap]),
   ],
   mirror: [
