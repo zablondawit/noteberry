@@ -16,6 +16,8 @@ import {
 import { Editor } from "./editor";
 import styles from "./editor-container.module.css";
 import { extensions } from "./extensions";
+import { useUIStore } from "@/store/ui";
+import { setScrollbarHide } from "@/lib/extensions/hide-scrollbar";
 
 type EditorContainerProps = {
   value: Note["content"];
@@ -79,6 +81,10 @@ export const EditorContainer = (props: EditorContainerProps) => {
       syncActiveLine(mirrorEditor),
       syncScroll(mirrorEditor),
     ]);
+
+    return useUIStore.subscribe(({ resultOpen }) => {
+      setScrollbarHide(mainEditor, resultOpen);
+    });
   }, [editorsReady]);
 
   const editorRef = useCallback((instance: ReactCodeMirrorRef) => {
@@ -86,12 +92,16 @@ export const EditorContainer = (props: EditorContainerProps) => {
 
     instance.view.focus();
   }, []);
+  const handleCollapseChange = useCallback((collapsed: boolean) => {
+    useUIStore.setState({ resultOpen: !collapsed });
+  }, []);
 
   return (
     <ResizableContainer
       defaultLayout={defaultLayout}
       expandSidebar={expandSidebar}
       onLayoutChange={onLayoutChange}
+      onCollapsedChange={handleCollapseChange}
       leftPane={
         <Editor
           //@ts-ignore should work fine

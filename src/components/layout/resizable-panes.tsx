@@ -22,10 +22,17 @@ export type ResizableContainerProps = {
   expandSidebar?: boolean;
   onLayoutChange?: (layout: Layout) => void;
   defaultLayout?: Layout;
+  onCollapsedChange?: (collapsed: boolean) => void;
 };
 export const ResizableContainer = (props: ResizableContainerProps) => {
-  const { leftPane, rightPane, expandSidebar, onLayoutChange, defaultLayout } =
-    props;
+  const {
+    leftPane,
+    rightPane,
+    expandSidebar,
+    onLayoutChange,
+    defaultLayout,
+    onCollapsedChange,
+  } = props;
   const rightRef = usePanelRef();
 
   useEffect(() => {
@@ -34,11 +41,21 @@ export const ResizableContainer = (props: ResizableContainerProps) => {
     else rightRef.current.expand();
   }, [expandSidebar]);
 
+  // Changing since this is called when the layout change is in progress
+  // not when is done
+  // FIXME: simple naming discrepancy, should be changed to onLayoutChangeInProgress or something like that :) or should match the library naming
+  const onLayoutChanging = () => {
+    if (!rightRef.current) return;
+    const collapsed = rightRef.current.isCollapsed();
+    onCollapsedChange?.(collapsed);
+  };
+
   return (
     <ResizablePanelGroup
       className={cn([styles.resizable_pane])}
       orientation="horizontal"
       onLayoutChanged={onLayoutChange}
+      onLayoutChange={onLayoutChanging}
       defaultLayout={defaultLayout}
     >
       <ResizablePanel id="left-pane" defaultSize={"50%"}>
