@@ -1,3 +1,14 @@
+/**
+ * Helper function that combines multiple functions into one. When the combined function is called, it will call all the provided functions with the same arguments.
+ * Useful for having multiple callbacks for the same event, like onChange or onClick.
+ *
+ * @example
+ * const fn1 = (a: number) => console.log(a);
+ * const fn2 = (a: number) => console.log(a * 2);
+ * const combined = combine(fn1, fn2);
+ * combined(5); // Logs 5 and 10
+ *
+ */
 export const combine =
   <T extends (...args: any[]) => any>(...fns: (T | undefined)[]) =>
   (...args: Parameters<T>): ReturnType<T> | void =>
