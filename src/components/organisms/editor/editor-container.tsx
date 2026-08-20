@@ -1,31 +1,39 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { mathResultsInEditor } from "@/lib/extensions/math";
+import { syncScroll } from "@/lib/extensions/sync-scroll";
+import { syncActiveLine } from "@/lib/extensions/sync-selection";
+import { cn } from "@/lib/utils";
 import type { Note } from "@/store/db";
-import { Editor } from "./editor";
-import styles from "./editor-container.module.css";
-import { containerStyle, editorContainerStyle } from "./editor-container.css";
 import type {
   EditorView,
   Extension,
-  ReactCodeMirrorProps,
   ReactCodeMirrorRef,
 } from "@uiw/react-codemirror";
-import { extensions } from "./extensions";
-import { mathResultsInEditor } from "@/lib/extensions/math";
-import { syncActiveLine } from "@/lib/extensions/sync-selection";
-import { syncScroll } from "@/lib/extensions/sync-scroll";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ResizableContainer,
   type ResizableContainerProps,
 } from "../../layout/resizable-panes";
-import { cn } from "@/lib/utils";
+import { Editor } from "./editor";
+import styles from "./editor-container.module.css";
+import { extensions } from "./extensions";
 
 type EditorContainerProps = {
   value: Note["content"];
   onChange: (data: string) => Promise<void>;
   activeNote?: Note;
-} & Pick<ResizableContainerProps, "expandSidebar">;
+} & Pick<
+  ResizableContainerProps,
+  "expandSidebar" | "defaultLayout" | "onLayoutChange"
+>;
 export const EditorContainer = (props: EditorContainerProps) => {
-  const { value, activeNote, onChange, expandSidebar } = props;
+  const {
+    value,
+    activeNote,
+    onChange,
+    expandSidebar,
+    onLayoutChange,
+    defaultLayout,
+  } = props;
   const [content, setEditorContent] = useState<Note["content"]>(value);
 
   const mainEditorRef = useRef<EditorView>(null);
@@ -81,7 +89,9 @@ export const EditorContainer = (props: EditorContainerProps) => {
 
   return (
     <ResizableContainer
+      defaultLayout={defaultLayout}
       expandSidebar={expandSidebar}
+      onLayoutChange={onLayoutChange}
       leftPane={
         <Editor
           //@ts-ignore should work fine

@@ -1,13 +1,13 @@
+import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { usePanelRef, type Layout } from "react-resizable-panels";
 import {
-  ResizablePanelGroup,
   ResizableHandle,
   ResizablePanel,
+  ResizablePanelGroup,
 } from "../ui/resizable";
 import styles from "./resizable-panes.module.css";
-import { cn } from "@/lib/utils";
-import { usePanelRef } from "react-resizable-panels";
 
 const CONFIG = {
   right: {
@@ -20,9 +20,12 @@ export type ResizableContainerProps = {
   leftPane: ReactNode;
   rightPane: ReactNode;
   expandSidebar?: boolean;
+  onLayoutChange?: (layout: Layout) => void;
+  defaultLayout?: Layout;
 };
 export const ResizableContainer = (props: ResizableContainerProps) => {
-  const { leftPane, rightPane, expandSidebar } = props;
+  const { leftPane, rightPane, expandSidebar, onLayoutChange, defaultLayout } =
+    props;
   const rightRef = usePanelRef();
 
   useEffect(() => {
@@ -35,10 +38,15 @@ export const ResizableContainer = (props: ResizableContainerProps) => {
     <ResizablePanelGroup
       className={cn([styles.resizable_pane])}
       orientation="horizontal"
+      onLayoutChanged={onLayoutChange}
+      defaultLayout={defaultLayout}
     >
-      <ResizablePanel defaultSize={"50%"}>{leftPane}</ResizablePanel>
+      <ResizablePanel id="left-pane" defaultSize={"50%"}>
+        {leftPane}
+      </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel
+        id="right-pane"
         panelRef={rightRef}
         collapsible
         maxSize={CONFIG.right.maxSize}

@@ -50,7 +50,7 @@ const App = () => {
       content: data,
     });
   }, []);
-  const { resultOpen } = useUIStore();
+  const { resultOpen, editorLayout, setEditorLayout } = useUIStore();
 
   return (
     <main className={mainStyle}>
@@ -61,6 +61,8 @@ const App = () => {
         activeNote={activeNote}
         onChange={handleOnChange}
         value={editorContent}
+        onLayoutChange={setEditorLayout}
+        defaultLayout={editorLayout}
       />
     </main>
   );
