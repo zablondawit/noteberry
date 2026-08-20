@@ -6,7 +6,7 @@
 - A function is a block of expression that can be evaluated as a single unit
 - A function takes an input and results in an output, which are both evaluated to a mathematical value
 
-![Screenshot](./docs/screenshot.png)
+![Video GIF](./docs/output.gif)
 
 ## Terms
 
