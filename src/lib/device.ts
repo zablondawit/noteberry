@@ -1,4 +1,4 @@
-type DeviceType = "mobile" | "tablet" | "desktop";
+export type DeviceType = "mobile" | "tablet" | "desktop";
 const SCREEN_SIZES = {
   mobile: 768,
   tablet: 1024,

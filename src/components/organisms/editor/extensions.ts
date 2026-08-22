@@ -10,12 +10,17 @@ import {
 import { closeBrackets } from "@codemirror/autocomplete";
 import { bracketMatching } from "@codemirror/language";
 import { hideScrollbar } from "@/lib/extensions/hide-scrollbar";
+import { detectDeviceSize, type DeviceType } from "@/lib/device";
 
 export const commonExtensions = [highlightActiveLine()] as const as Extension[];
+export const deviceExtensions = {
+  desktop: [vim()],
+  tablet: [vim()],
+  mobile: [],
+} as const as Record<DeviceType, Extension[]>;
 export const extensions = {
   editor: [
     ...commonExtensions,
-    vim(),
     lineNumbers(),
     history(),
     closeBrackets(),
@@ -24,6 +29,7 @@ export const extensions = {
     drawSelection(),
     hideScrollbar(),
     keymap.of([...defaultKeymap, ...historyKeymap]),
+    ...deviceExtensions[detectDeviceSize(window)],
   ],
   mirror: [
     ...commonExtensions,
