@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { useUIStore } from "@/store/ui";
 import clsx from "clsx";
 import { MenuIcon, PanelTopClose, Settings2Icon } from "lucide-react";
 import { HeaderBtn } from "../atoms/header-btn";
