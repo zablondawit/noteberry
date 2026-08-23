@@ -1,19 +1,27 @@
-import { MenuIcon, PanelTopClose } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useUIStore } from "@/store/ui";
+import clsx from "clsx";
+import { MenuIcon, PanelTopClose, Settings2Icon } from "lucide-react";
 import { HeaderBtn } from "../atoms/header-btn";
 import styles from "./header-bar.module.css";
-import clsx from "clsx";
-import { useUIStore } from "@/store/ui";
-import { cn } from "@/lib/utils";
 
-export const HeaderBar = () => {
-  const { toggleResult, resultOpen } = useUIStore();
+type HeaderBarProps = {
+  onSettingsBtnClick?: () => void;
+  onResultBtnClick?: () => void;
+  resultOpen: boolean;
+};
+export const HeaderBar = (props: HeaderBarProps) => {
+  const { onResultBtnClick, onSettingsBtnClick, resultOpen } = props;
 
   return (
     <header className={clsx([styles.header_bar])}>
       <span></span>
 
       <span>
-        <HeaderBtn onClick={toggleResult}>
+        <HeaderBtn title="Settings" onClick={onSettingsBtnClick}>
+          <Settings2Icon />
+        </HeaderBtn>
+        <HeaderBtn title="toggle sidebar" onClick={onResultBtnClick}>
           <PanelTopClose
             className={cn([resultOpen ? "rotate-90" : "rotate-270"])}
           />

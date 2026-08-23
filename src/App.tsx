@@ -50,12 +50,17 @@ const App = () => {
       content: data,
     });
   }, []);
-  const { resultOpen, editorLayout, setEditorLayout } = useUIStore();
+  const { resultOpen, toggleResult, editorLayout, setEditorLayout } =
+    useUIStore();
 
   return (
     <main className={mainStyle}>
       {/*<NoteSelectPanel onNoteSelect={onNoteSelect} notes={notes} />*/}
-      <HeaderBar />
+      <HeaderBar
+        resultOpen={resultOpen}
+        onResultBtnClick={toggleResult}
+        onSettingsBtnClick={console.log}
+      />
       <EditorContainer
         expandSidebar={resultOpen}
         activeNote={activeNote}
