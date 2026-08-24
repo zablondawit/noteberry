@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-type ResponsiveDialogProps = {
+export type ResponsiveDialogProps = {
   children?: React.ReactNode;
   trigger?: React.ReactNode;
   title: string;
