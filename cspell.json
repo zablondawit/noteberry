@@ -11,6 +11,7 @@
     "Dexie",
     "indexeddb",
     "HTMLLI",
-    "lucide"
+    "lucide",
+    "shadcn"
   ]
 }
