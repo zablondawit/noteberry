@@ -1,12 +1,12 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 globalStyle("html, body, *", {
-  margin: 0,
-  padding: 0,
+  // margin: 0,
+  // padding: 0,
   boxSizing: "border-box",
 });
 globalStyle("html", {
-  fontSize: "1.8em",
+  fontSize: "1.4em",
 });
 
 export const editorContainerStyles = style({

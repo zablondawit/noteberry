@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { MenuIcon, PanelTopClose, Settings2Icon } from "lucide-react";
 import { HeaderBtn } from "../atoms/header-btn";
 import styles from "./header-bar.module.css";
+import { SettingsPanel } from "./settings-panel";
 
 type HeaderBarProps = {
   onSettingsBtnClick?: () => void;
@@ -17,9 +18,13 @@ export const HeaderBar = (props: HeaderBarProps) => {
       <span></span>
 
       <span>
-        <HeaderBtn title="Settings" onClick={onSettingsBtnClick}>
-          <Settings2Icon />
-        </HeaderBtn>
+        <SettingsPanel
+          trigger={
+            <HeaderBtn title="Settings" onClick={onSettingsBtnClick}>
+              <Settings2Icon />
+            </HeaderBtn>
+          }
+        />
         <HeaderBtn title="toggle sidebar" onClick={onResultBtnClick}>
           <PanelTopClose
             className={cn([resultOpen ? "rotate-90" : "rotate-270"])}

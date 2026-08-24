@@ -2,7 +2,6 @@ import { EditorContainer } from "@/components/organisms/editor/editor-container"
 import { HeaderBar } from "@/components/organisms/header-bar";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useCallback, useMemo, useState } from "react";
-import "./app.css";
 import { mainStyle } from "./app.css";
 import { db, type Note } from "./store/db";
 import { NoteRepositoryLive } from "./store/notes";
