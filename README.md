@@ -26,11 +26,21 @@
 We'll be using these terms to describe the application.
 
 - Notepad, the whole application and it's state
-- Note, a block of text that represents a page in the notepad
-- Line, a single line of text in a page
+- Pad, a single unit of data that contains a set of lines that can be calculated into results
 - Evaluation, the process of evaluating a math expression or javascript function
 - Result, the resulting data representation of an evaluation of either a line or a page
 - Output, the visual representation of a result
+
+NOTE: The term Pad since a single file in our application can be viewed through a notepad interface or a simple calculator interface, and is not limited to just one view.
+
+## Multi-View Calculator UI (Update Aug 25 2026)
+
+- As I am building the application, I have realized that it will be good to have an interface for the normal calculator use-case.
+- Simple grid of buttons, used to do quick simple calculations. This is similar to how every other calculator application is built
+- This is interesting because it is actually compatible with the notepad calculator, in a certain way.
+- Treating the notepad as a history of calculations, the calculator can be used to do quick calculations and then store the results in the notepad for later use.
+- This is not limited to just two types of views, can be expanded as needed or if needed.
+- In conclusion, having the UI be able to switch between simple view and notepad view is a good idea, as it allows for more flexibility in how the application can be used.
 
 ## Roadmap
 
@@ -42,6 +52,7 @@ We'll be using these terms to describe the application.
 6. [ ] Defining and calling javascript functions
 7. [ ] Exposing javascript functions inside a page as an module that can be reused inside another page
 8. [ ] Sharing pages with other users
+9. [ ] Multi-view calculator UI (simple calculator view and notepad view)
 
 ## Contribution
 
