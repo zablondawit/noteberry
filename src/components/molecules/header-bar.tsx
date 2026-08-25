@@ -1,21 +1,31 @@
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
-import { MenuIcon, PanelTopClose, Settings2Icon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  MenuIcon,
+  PanelTopClose,
+  Settings2Icon,
+} from "lucide-react";
 import { HeaderBtn } from "../atoms/header-btn";
 import styles from "./header-bar.module.css";
-import { SettingsPanel } from "./settings-panel";
+import { SettingsPanel } from "../organisms/settings-panel";
 
 type HeaderBarProps = {
   onSettingsBtnClick?: () => void;
   onResultBtnClick?: () => void;
   resultOpen: boolean;
+  onBack?: () => void;
 };
 export const HeaderBar = (props: HeaderBarProps) => {
-  const { onResultBtnClick, onSettingsBtnClick, resultOpen } = props;
+  const { onResultBtnClick, onSettingsBtnClick, onBack, resultOpen } = props;
 
   return (
     <header className={clsx([styles.header_bar])}>
-      <span></span>
+      <span>
+        <HeaderBtn title="Go Back" onClick={onBack}>
+          <ArrowLeftIcon />
+        </HeaderBtn>
+      </span>
 
       <span>
         <SettingsPanel

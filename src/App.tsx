@@ -1,5 +1,5 @@
 import { EditorContainer } from "@/components/organisms/editor/editor-container";
-import { HeaderBar } from "@/components/organisms/header-bar";
+import { HeaderBar } from "@/components/molecules/header-bar";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useCallback, useMemo, useState } from "react";
 import { mainStyle } from "./app.css";
