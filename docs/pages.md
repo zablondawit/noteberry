@@ -11,3 +11,10 @@
 
 - We'll be using tan-stack router, for now it's suitable
 - The application will be built using a modern web framework, ensuring responsiveness and compatibility across different devices and browsers.
+
+### Configuring TanStack Router
+
+1. We're using `pages` instead `routes` for the pages of the application,
+   makes logical sense to me although it might not be the idiomatic way to work with TanStack
+2. generated routes from the pages folder is in the `routes.gen.ts`,
+   same here logically makes makes sense to me.

@@ -5,6 +5,7 @@ import compression from "vite-plugin-compression2";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import autoprefixer from "autoprefixer";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 // https://vite.dev/config/
 import path from "node:path";
@@ -18,7 +19,18 @@ const dirname =
 // For unit tests only: pnpm vitest
 // For storybook tests only: pnpm vitest --config vitest.storybook.config.ts
 export default defineConfig({
-  plugins: [react(), compression(), vanillaExtractPlugin(), tailwindcss()],
+  plugins: [
+    tanstackRouter({
+      target: "react",
+      autoCodeSplitting: true,
+      routesDirectory: "./src/pages",
+      generatedRouteTree: "./src/routes.gen.ts",
+    }),
+    react(),
+    compression(),
+    vanillaExtractPlugin(),
+    tailwindcss(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(dirname, "./src"),

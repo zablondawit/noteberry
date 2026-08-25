@@ -12,6 +12,7 @@
     "indexeddb",
     "HTMLLI",
     "lucide",
-    "shadcn"
+    "shadcn",
+    "tanstack"
   ]
 }
