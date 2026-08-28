@@ -8,8 +8,8 @@ const meta: Meta<typeof NoteCard> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof NoteCard>;
-type MultipleCardsStory = StoryObj<typeof NoteCard> & {
+type Story = StoryObj<typeof meta>;
+type MultipleCardsStory = StoryObj<typeof meta> & {
   args: {
     notes: Array<{
       id: number;
