@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { EditorContainer } from "@/components/organisms/editor/editor-container";
 import { HeaderBar } from "@/components/molecules/header-bar";
-import { useLiveQuery } from "dexie-react-hooks";
-import { useCallback, useMemo, useState } from "react";
-import { mainStyle } from "@/app.css";
+import { EditorContainer } from "@/components/organisms/editor/editor-container";
 import { db, type Note } from "@/store/db";
 import { NoteRepositoryLive } from "@/store/notes";
 import { useUIStore } from "@/store/ui";
 import { useNavigate } from "@tanstack/react-router";
+import { useLiveQuery } from "dexie-react-hooks";
+import { useCallback, useMemo, useState } from "react";
+import styles from "./index.module.css";
 
 // The active note ID is used to determine which note to display in the editor
 // Currently just use one note, so we hardcode the ID to 1
@@ -58,7 +58,7 @@ const App = () => {
   const navigate = useNavigate();
 
   return (
-    <main className={mainStyle}>
+    <main className={styles.main_container}>
       {/*<NoteSelectPanel onNoteSelect={onNoteSelect} notes={notes} />*/}
       <HeaderBar
         onBack={() => {
