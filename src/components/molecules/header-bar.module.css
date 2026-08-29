@@ -1,5 +1,5 @@
 @reference "../../globals.css";
 
 .header_bar {
-  @apply border-b border-b-mist-500 flex flex-row items-center gap-1 justify-between;
+  @apply border-b border-b-mist-500 flex flex-row items-center gap-1 justify-between p-2;
 }

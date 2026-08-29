@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+.main {
+  @apply flex flex-col w-full h-full gap-2;
+}
+.header {
+  @apply flex flex-row justify-between px-4 py-2;
+}
+.title {
+  @apply font-semibold select-none;
+}
+.notes_list_container {
+  @apply flex flex-row flex-wrap gap-2 px-4 py-2;
+}
