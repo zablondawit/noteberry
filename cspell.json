@@ -13,6 +13,7 @@
     "HTMLLI",
     "lucide",
     "shadcn",
-    "tanstack"
+    "tanstack",
+    "nowrap"
   ]
 }

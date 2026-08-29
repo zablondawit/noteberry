@@ -10,7 +10,6 @@ export const HeaderBtn = (props: PropsWithChildren<HeaderBtnProps>) => {
   return (
     <Button
       variant="ghost"
-      size="sm"
       className={cn([styles.header_btn, classes])}
       {...rest}
     >
