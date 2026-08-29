@@ -1,3 +1,4 @@
+import { NoteCard } from "@/components/atoms/note-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Note } from "@/store/db";
@@ -5,7 +6,7 @@ import { faker } from "@faker-js/faker";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PlusIcon } from "lucide-react";
 import styles from "./index.module.css";
-import { NoteCard } from "@/components/atoms/note-card";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -42,17 +43,24 @@ const Header = () => {
 const NoteListContainer = (props: {
   children?: React.ReactNode;
   notes: Note[];
+  title?: string;
 }) => {
-  const { notes } = props;
+  const { notes, title } = props;
 
   return (
-    <section>
-      <section className={cn(styles.notes_list_container)}>
-        {notes.map((note) => (
-          <NoteCard key={note.id} onClick={console.log} note={note} />
-        ))}
-      </section>
-    </section>
+    <div>
+      <h3 className="px-4">{title}</h3>
+
+      <ScrollArea className="whitespace-nowrap">
+        <section className={cn(styles.notes_list_container)}>
+          {notes.map((note) => (
+            <NoteCard key={note.id} onClick={console.log} note={note} />
+          ))}
+        </section>
+
+        <ScrollBar orientation="horizontal" hidden />
+      </ScrollArea>
+    </div>
   );
 };
 
@@ -60,7 +68,8 @@ function RouteComponent() {
   return (
     <main className={cn([styles.main])}>
       <Header />
-      <NoteListContainer notes={mockNotes} />
+      <NoteListContainer title={"Recent Notes"} notes={mockNotes} />
+      <NoteListContainer title={"Starred"} notes={mockNotes} />
     </main>
   );
 }
